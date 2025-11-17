@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int    @id @default(autoincrement())
+  username   String @unique
+  password   String
+  documents  Entity[]
+
+  @@map("users")
+}
+
+enum EntityType {
+    FOLDER
+    FILE
+}
+
+model Entity {
+    id              Int         @id @default(autoincrement())
+    name            String      
+    type            EntityType
+    size            Int?
+    mimeType        String?
+    createdAt       DateTime    @default(now())
+    parentId        Int?
+    userId          Int
+    user            User        @relation(fields: [userId], references: [id])
+
+    parentFolder    Entity?     @relation("EntityParent", fields: [parentId], references: [id], onDelete: Cascade)
+    childEntities   Entity[]    @relation("EntityParent")
+
+    @@index([parentId])
+    @@index([userId])
+
+    @@map("entities")
+}
