@@ -24,34 +24,34 @@ export const uploadFile = async (
     const filePath = `${userId}/${originalname}`
 
     const bufferStream = new Readable()
-     bufferStream.push(buffer)
-     bufferStream.push(null) // end of stream
+    bufferStream.push(buffer)
+    bufferStream.push(null) // end of stream
 
-     const {data, error} = await storage.uploadFile(bucketName, filePath, bufferStream, options)
+    const {data, error} = await storage.uploadFile(bucketName, filePath, bufferStream, options)
 
-     if (error) {
-         console.log("Bucket error", error)
-         if ('statusCode' in error) {
-             // duplicate or maximum size exceeded
-             if (error.statusCode === 409 || error.statusCode === 413) {
-                 return { 
-                     data: null,
-                     error: new Error(error.message)
-                 }
-             }
-         }
+    if (error) {
+        console.log("Bucket error", error)
+        if ('statusCode' in error) {
+            // duplicate or maximum size exceeded
+            if (error.statusCode === 409 || error.statusCode === 413) {
+                return { 
+                    data: null,
+                    error: new Error(error.message)
+                }
+            }
+        }
 
-         return {
-             data: null,
-             // error: new Error(defaultError)
-         }
-     }
+        return {
+            data: null,
+            // error: new Error(defaultError)
+        }
+    }
 
+    // send metadata to database
+    await createFile(originalname, mimetype, size, userId, parentId)
 
-     await createFile(originalname, mimetype, size, userId, parentId)
-
-     return {
-         data,
-         error: null
-     }
+    return {
+        data,
+        error: null
+    }
 }

@@ -1,0 +1,11 @@
+storage.repository -> database CRUD
+
+models/schemas -> schema's validation
+
+public.controller -> public folders controller
+
+share.controller -> shared folders/files controller 
+
+entities.repository -> getters/setters/controller of users and entities 
+
+

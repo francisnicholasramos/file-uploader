@@ -1,3 +1,8 @@
-import Router from "express";
+import {Router} from "express";
+import {getFolder} from "@/entity/folder/folder.controller";
 
-export const router = Router();
+const router = Router();
+
+router.get("/", getFolder);
+
+export default router;

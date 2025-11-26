@@ -1,11 +1,15 @@
+import "module-alias/register";
+
 import express from "express";
 import session from "express-session";
 import path from "node:path";
 import passport from "./config/passportConfig";
+import {isAuthenticated} from "./middleware/isAuthenticated";
 import "dotenv/config";
 
-import {router as login} from "./auth/auth.router";
-import {router as fileRouter} from "./entity/file/file.router";
+import login from "./auth/auth.router";
+import fileRouter from "./entity/file/file.router";
+import folderRouter from "./entity/folder/folder.router";
 
 const app = express();
 
@@ -32,8 +36,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/", login)
-app.use("/", fileRouter)
+app.use("/", isAuthenticated, folderRouter)
+app.use("/", isAuthenticated, fileRouter)
 
+// mispelled endpoints
 app.use((req, res) => {
     if (!req.isAuthenticated()) {
         res.status(404).send("404 page not found.")

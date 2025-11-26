@@ -19,11 +19,24 @@
                     <input type="file" name="file" />
                     <button type="submit">Test the submit</button>
                 </form>
+
+                <div class="content">
+                    contents here
+                </div>
+
+
+                <% console.log("** logs **", entities) %>
+                <% for (let i = 0; i < entities.length; i++) { %>
+                    <p>
+                        <%= entities[i].name %>
+                    </p>
+                <% } %>
+
                   
-                <button>Create folder</button>
             </div>
             <div></div>
         </div>
     </body>
+
 </html>
 

@@ -1,10 +1,22 @@
-import { prisma } from "./prismaClient";
+import prisma from "./prismaClient";
 
-async function test(id: number) {
-  const user = await prisma.user.findUnique({ where: { id } })
-    console.log(user)
+async function test(
+    name: string,
+    size: number,
+    mimetype: string,
+    userId: number,
+    parentId: number | null
+) {
+    return prisma.entity.create({
+        data: {
+            type: "FILE", name,
+            size,
+            mimeType: mimetype,
+            userId,
+            parentId
+        }
+    })
 }
-
-test(1)
+// test("cat", 2003, "text/html", 2, null)
     // .catch(console.error)
     // .finally(() => prisma.$disconnect())

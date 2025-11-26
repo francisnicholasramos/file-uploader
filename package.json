@@ -2,7 +2,8 @@
   "scripts": {
     "dev": "tsx watch --env-file=.env src/app.ts",
     "generate": "npx prisma generate",
-    "migrate": "npx prisma migrate dev"
+    "migrate": "npx prisma migrate dev",
+    "reset": "prisma migrate reset"
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
