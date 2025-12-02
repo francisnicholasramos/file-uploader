@@ -40,6 +40,54 @@ export const getUserEntities = async (userId: number) => {
   })
 }
 
+export const getDirectoryTree = async (
+    userId: number | undefined,
+    parentId: number | null
+) => {
+    const allDirectories = await prisma.entity.findMany({
+        where: { 
+            userId,
+            type: 'DIR'
+        },
+        select: {
+            id: true,
+            name: true,
+            parentId: true
+        }
+    })
+
+    const dirMap = new Map()
+
+    for (const dir of allDirectories) {
+        dirMap.set(dir.id, {
+            id: dir.id,
+            name: dir.name,
+            childEntities: []
+        })
+    }
+
+    const directoryTree = [];
+
+    for (const dir of allDirectories) {
+        const dirEntity = dirMap.get(dir.id)
+
+        if (!dirEntity) continue
+
+        if (dir.parentId) {
+            const parent = dirMap.get(dir.parentId)
+            if (parent) parent.childEntities.push(dirEntity)
+        } else {
+            directoryTree.push(dirEntity)
+        }
+    }
+
+    if (parentId !== null) {
+        const dirParent = dirMap.get(parentId)
+        return dirParent ? dirParent.childEntities : []
+    }
+
+    return directoryTree;
+}
 
 export const getFileById = async (id: number) =>
     prisma.entity.findUnique({where: {id, type: 'FILE'} })
@@ -52,6 +100,10 @@ export const deleteEntityById = async (id: number) => {
     })
 }
 
+// test 
+getDirectoryTree(1, null).then(data => {
+    console.dir(data, {depth: null}) // spread nested childs
+})
 
-// createDirectory('testDir', 1, null)
+// createDirectory('secondLevelDir', 1, 6)
 
