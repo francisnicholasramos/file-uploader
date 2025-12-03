@@ -23,3 +23,36 @@ export const postSignup = async (req:Request, res:Response, next:NextFunction) =
         return next(error)
     }
 }
+
+export const logout = async (req:Request, res:Response, next:NextFunction) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err)
+        }
+        req.session.destroy((err) => {
+            if (err) return next(err);
+            res.clearCookie("connect.sid");
+            res.redirect("/")
+        })
+    })
+}
+
+export const login = async (req:Request, res:Response, next:NextFunction) => {
+    try {
+        if (req.isAuthenticated()) return res.redirect("/")
+        res.render("login")
+    } catch (err) {
+        next(err)
+    }
+}
+
+export const signup = async (req:Request, res:Response, next:NextFunction) => {
+    try {
+        if (req.isAuthenticated()) return res.redirect("/")
+        res.render("signup")
+    } catch (err) {
+        next(err)
+    }
+}
+
+
