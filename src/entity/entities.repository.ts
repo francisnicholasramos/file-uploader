@@ -1,4 +1,6 @@
 import prisma from "../db/prismaClient";
+import type {PathSegmentEntity} from "../types/types.ts";
+import type { Entity, Prisma } from '@prisma/client'
 
 export const createFile = async (
     name: string,
@@ -30,6 +32,17 @@ export const createDirectory = async (
             name,
             userId,
             parentId
+        }
+    })
+}
+
+export const getDirEntityById = async (
+    id: number,
+) => {
+    return prisma.entity.findUnique({
+        where: { id, type: 'DIR' },
+        include: {
+            childEntities: true
         }
     })
 }
@@ -89,6 +102,38 @@ export const getDirectoryTree = async (
     return directoryTree;
 }
 
+// breadcrumbs
+export const getBreadCrumbs = async (entityId?: number) => {
+    if (!entityId) return [];
+
+    const pathSegments: {id:number; name:string}[] = []
+
+    let currentId: number | null = entityId;
+
+    while (currentId) {
+        const entity: PathSegmentEntity = await prisma.entity.findUnique({
+            where: {id: currentId},
+            select: {
+                id: true,
+                name: true,
+                parentId: true
+            }
+        })
+
+        if (entity) {
+            pathSegments.unshift({
+                id: entity.id,
+                name: entity.name
+            })
+            currentId = entity.parentId
+        } else {
+            currentId = null;
+        }
+    }
+
+    return pathSegments;
+}
+
 export const getFileById = async (id: number) =>
     prisma.entity.findUnique({where: {id, type: 'FILE'} })
 
@@ -101,9 +146,9 @@ export const deleteEntityById = async (id: number) => {
 }
 
 // test 
-getDirectoryTree(1, null).then(data => {
-    console.dir(data, {depth: null}) // spread nested childs
-})
+// getDirectoryTree(1, null).then(data => {
+//     console.dir(data, {depth: null}) // spread nested childs
+// })
 
-// createDirectory('secondLevelDir', 1, 6)
+// createDirectory('secondLevelDir', 1, 22)
 
