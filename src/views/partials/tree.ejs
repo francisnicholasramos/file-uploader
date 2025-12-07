@@ -1,0 +1,25 @@
+<div>
+    <% function renderTree(directory, level=0) { %>
+        <% directory.forEach((dir, index) => { %>
+
+            <% const lastIndex = index === directory.length - 1 %>
+
+            <details class="folder-level-<% level %>">
+                <summary class="folder-summary">
+                    <a href="/storage/<%= dir.id %>" class="dirTreeLinks">
+                        <%= dir.name %>
+                    </a>
+                </summary>
+
+                <% if (dir.childEntities && dir.childEntities.length > 0) { %>
+                <div class="subtree <%= lastIndex ? 'last-child' : '' %>">
+                    <%= renderTree(dir.childEntities, level + 1) %>
+                </div>
+                <% } %>
+            </details>
+        <% }) %>
+    <% } %>
+
+    <%= renderTree(directories) %>
+</div>
+

@@ -1,0 +1,23 @@
+<div class="breadcrumbs">
+    <% if (rootFolder.id === null) { %>
+        <div>
+            <%= rootFolder.name %>
+        </div>
+    <% } %>
+    
+    <% if (pathSegments?.length > 0) { %>
+    <% pathSegments.forEach((segment, index) => { %>
+        <a href="/storage/<%= segment.id %>">
+            <%= segment.name %>
+        </a>
+
+        <% if (index < pathSegments.length - 1) { %>
+            <span> 
+                >
+            </span>
+        <% } %>
+    <% }) %>
+    <% } %>
+
+</div>
+
