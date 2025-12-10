@@ -12,9 +12,18 @@
   padding: 0 10px 0 5px;
 }
 
-/* .breadcrumbs { */
-/**/
-/* } */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.path-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
 
 .item {
   display: flex;
