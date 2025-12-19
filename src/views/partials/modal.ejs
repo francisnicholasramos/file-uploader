@@ -1,0 +1,41 @@
+<script id="entity-data" type="application/json">
+    <%- JSON.stringify(entities) %>
+</script>
+
+<% for (let i=0; i < entities.length; i++) { %>
+<div class="modal" data-id="<%= entities[i].id %>">
+
+<div class="modal-backdrop"></div>
+
+<div class="modal-content">
+<button class="closeModal">x</button>
+    <div class="metadata">
+        <p>
+            <b>
+                <%= entities[i].name %>
+            </b>
+        </p>
+        <small>image/png - 12.02 KB</small>
+
+        <br/><br/>
+        
+        <small>Added on</small>
+        <p>12/10/25 - 2:36 PM</p>
+    </div>
+
+    <div class="">
+        <button class="download">Download</button>
+        <select>
+            <option disabled selected hidden>Get URL</option>
+            <option><small>Expire in 1 hour</small></option>
+            <option><small>Expire in 7 hours</small></option>
+            <option><small>Expire in 24 hours</small></option>
+        </select>
+    </div>
+
+    <hr>
+
+    <button class="delete">Delete</button>
+</div>
+</div>
+<% } %>
