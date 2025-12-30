@@ -3,4 +3,8 @@ namespace Express {
         id?: number | undefined
         username: string
     }
+
+    interface Request {
+        sharedFolder?: Prisma.SharedFolder
+    }
 }
