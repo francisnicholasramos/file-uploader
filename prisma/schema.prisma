@@ -8,10 +8,11 @@ datasource db {
 }
 
 model User {
-  id         Int    @id @default(autoincrement())
-  username   String @unique
-  password   String
-  documents  Entity[]
+  id             Int        @id @default(autoincrement())
+  username       String     @unique
+  password       String
+  documents      Entity[]
+  sharedFolders  SharedFolder[]
 
   @@map("users")
 }
@@ -34,9 +35,24 @@ model Entity {
 
     parentFolder    Entity?     @relation("EntityParent", fields: [parentId], references: [id], onDelete: Cascade)
     childEntities   Entity[]    @relation("EntityParent")
+    sharedFolders   SharedFolder[]
 
     @@index([parentId])
     @@index([userId])
 
     @@map("entities")
+}
+
+model SharedFolder {
+    id           String    @id @default(uuid())
+    userId       Int
+    folderId     Int
+    expiresAt    DateTime
+
+    user User @relation(fields: [userId], references: [id])
+    folder Entity @relation(fields: [folderId], references: [id], onDelete: Cascade)
+
+    @@map("shared_folders")
+    @@index([userId])
+    @@index([folderId])
 }
