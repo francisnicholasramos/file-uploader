@@ -60,7 +60,7 @@ export const shareDirectory = async (
         if (!sharedDirectoryUrl) return res.status(500).json({error: defaultError})
 
         res.json({
-            publicDirectoryUrl: `shared/folder/${sharedDirectoryUrl.id}`
+            publicDirectoryUrl: `${baseUrl}/public/${sharedDirectoryUrl.id}`
         })
     } catch (error) {
         return res.status(500).json({ error: defaultError })
