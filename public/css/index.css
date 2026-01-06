@@ -1,6 +1,5 @@
 .container {
   display: flex;
-  flex-direction: column;
   border: 1px solid;
   margin: auto;
   padding: 5px;
@@ -12,57 +11,65 @@
   padding: 0 10px 0 5px;
 }
 
+.logo {
+  color: #fabd2f;
+}
+
+/* user's name on display */
+.user {
+  color: #d3869b;
+  border: none;
+  border-top: none;
+}
+
+/* breadcrumbs */
 .breadcrumbs {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
 }
 
-.path-links {
+.path-link {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5px;
+  color: #8094b4;
+  gap: 10px;
 }
 
-.item {
+.chain-link {
+  color: #928374;
+}
+
+/* file & folder elements */
+.storage-items {
   display: flex;
   flex-direction: column;
   padding: 0 10px 0 5px;
 }
 
-a {
-  border-bottom: 1px solid #b3b3b3;
-  text-decoration: none;
-  padding: 10px 0 10px 0;
-}
-
-a:first-child {
+.entities:first-child {
   border-top: 1px solid #b3b3b3;
 }
 
-a:hover {
-  background-color: #f2f2f2;
+.file {
+  background-color: transparent;
+  text-align: start;
+}
+
+.folder {
+  color: #8094b4;
 }
 
 /* tree */
+details summary { 
+  list-style: none; 
+} 
+
 details { 
   margin-left: 20px; 
   position: relative; 
-}
-
-.dirTreeLinks {
-  color: #595959;
-}
-
-.dirTreeLinks:first-child {
-    border: none;
-}
-
-.dirTreeLinks:hover {
-    background-color: transparent;
-    text-decoration: none;  
-    color: blue;
+  color: #fe8019;
 }
 
 details::before {
@@ -79,26 +86,71 @@ summary::before {
   content: '─ ';
   position: absolute;
   left: -14px;
-  color: #999;
+  color: #fe8019;
 }
 
-.last-child summary::before {
-  content: '─ ';
+.directory {
+  color: #8094b4;
 }
 
-details::-webkit-details-marker { 
-  display: none; 
+.directory:first-child {
+  border: none;
 }
 
-details::-moz-details-marker { 
-  display: none; 
+.slash {
+  color: #b8bb26;
 }
 
-details::marker { 
-  display: none; 
-  color: #999;
+/* files & folders forms */
+.fileForm {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px 10px 10px;
+  gap: 5px;
+  background-color: #333;
 }
 
-details summary { 
-  list-style: none; 
-} 
+.directoryForm {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px 10px 10px;
+  gap: 10px;
+  background-color: #333;
+}
+
+/* buttons */
+.btn-primary {
+  background-color: #8094b4;
+  color: #1c1c1c;
+  align-self: end;
+  padding: 0 5px 0 5px;
+}
+
+/* .modal { */
+/*   display: none; */
+/*   flex-direction: column; */
+/*   justify-content: center; */
+/*   gap: 5px; */
+/*   position: fixed; */
+/*   border: 1px solid; */
+/*   max-width: 500px; */
+/*   max-height: 500px; */
+/*   padding: 0.5rem; */
+/*   margin: auto; */
+/*   z-index: 50; */
+/*   background-color: #1c1c1c; */
+/*   inset: 0; */
+/* } */
+/**/
+/* .modal-backdrop { */
+/*   position: absolute; */
+/*   inset: 0; */
+/* } */
+/**/
+/* .modal-content { */
+/*   position: relative; */
+/*   z-index: 1; */
+/*   border: 1px solid red; */
+/* } */
+/**/
+/**/
