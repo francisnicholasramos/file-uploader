@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const file = entityMap[fileId]
 
             if (file) {
-                window.location.href = `/storage/download/${fileId}`
+                window.location.href = `/files/download/${fileId}`
             }
         })
     })
