@@ -33,3 +33,6 @@ export const SignUpSchema = z.object({
 
 });
 
+export const ShareFileExpiration = z.object({
+    expiresIn: z.enum(["1", "7", "24"]).optional()
+})
