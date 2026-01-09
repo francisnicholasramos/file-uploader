@@ -1,6 +1,5 @@
 import prisma from "../db/prismaClient";
 import type {PathSegmentEntity} from "../types/types.ts";
-import type { Entity, Prisma } from '@prisma/client'
 
 export const createFile = async (
     name: string,
@@ -145,10 +144,65 @@ export const deleteEntityById = async (id: number) => {
     })
 }
 
+export const isDescendantOf = async (parentId: number, childId: number) => {
+    let currentDirectory = await prisma.entity.findUnique({
+        where: {id: childId},
+        select: {id: true, parentId: true}
+    })
+    
+    while (currentDirectory) {
+        // found the target parent
+        if (currentDirectory.id === parentId) return true;
+
+        // reached root folder
+        if (!currentDirectory.parentId) break;
+
+        // move up to parent 
+        currentDirectory = await prisma.entity.findUnique({
+            where: {id: currentDirectory.parentId},
+            select: {id: true, parentId: true}
+        })
+    }
+
+    return false;
+}
+
+
+export const getSharedDirectoryById = async (id: string) => {
+    return prisma.sharedFolder.findUnique({
+        where: {id},
+        include: {folder: true}
+    })
+}
+
+export const createSharedDirectory = async (
+    userId: number,
+    folderId: number,
+    expiresAt: Date
+) => {
+    return prisma.sharedFolder.create({
+        data: {
+            userId,
+            folderId,
+            expiresAt
+        }
+    })
+}
+
+export const getDirectoryContents = async (
+    parentId: number | null,
+) => {
+    return prisma.entity.findMany({
+      where: { 
+        parentId
+      }
+    })
+}
+
 // test 
 // getDirectoryTree(1, null).then(data => {
-//     console.dir(data, {depth: null}) // spread nested childs
+//     console.dir(data, {depth: null}) // spread nested children
 // })
 
-// createDirectory('secondLevelDir', 1, 22)
+// createDirectory('thirdLevelDir', 1, 23)
 
