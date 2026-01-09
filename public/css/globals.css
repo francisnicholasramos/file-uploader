@@ -20,6 +20,10 @@
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  font-family: monospace;
+  font-size: 1rem;
+  color:#ebdbb2; 
+  background-color: #1c1c1c;
 }
 
 img, picture, video, canvas, svg {
@@ -29,6 +33,16 @@ img, picture, video, canvas, svg {
 
 input, button, textarea, select {
   font: inherit;
+}
+
+button {
+  border-radius: 5px;
+  border: 1px solid #404040;
+  outline: none;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
@@ -41,4 +55,20 @@ p {
 
 h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
+}
+
+select {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+option {
+  max-width: 100%;
+}
+
+a {
+  text-align: start;
+  text-decoration: none;
+  padding: 10px 0 10px 0;
 }
