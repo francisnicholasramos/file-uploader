@@ -1,0 +1,74 @@
+<script id="entity-data" type="application/json">
+    <%- JSON.stringify(entities) %>
+</script>
+
+<button class="btn-secondary" id="file" data-target="new-file">New File</button>
+<button class="btn-secondary" id="folder" data-target="new-folder">New Folder</button>
+<button class="btn-secondary" id="share" data-target="share-folder">Share Folder</button>
+
+<!-- upload file -->
+<dialog id="new-file" class="navigation-dialog">
+    <form 
+        action="/files/uploadFile" 
+        method="POST"
+        enctype="multipart/form-data"
+        class="fileForm"
+    >
+        
+        <div class="dialog-title"> 
+            <label for="file">New File</label>
+            <button class="closeModal">x</button>
+        </div>
+        
+        <input type="file" name="file" id="file" />
+
+        <input type="hidden" name="parentId" value="<%= folderId %>" />
+
+        <button type="submit" class="btn-primary">Upload</button>
+    </form>
+</dialog>
+
+<!-- create new directory -->
+<dialog id="new-folder" class="navigation-dialog">
+    <form 
+        action="/storage/createDirectory" 
+        method="POST"
+        class="directoryForm"
+    >
+        <input type="hidden" name="parentId" value="<%= folderId || null %>" />
+
+        <div class="dialog-title"> 
+            <label for="dir">Directory</label>
+        </div>
+
+        <input type="text" name="dir" id="dir" placeholder="Untitled folder"/>
+
+        <button type="submit" class="btn-primary">Create</button>
+    </form>
+</dialog>
+
+<!-- shared folder button -->
+<dialog id="share-folder" class="navigation-dialog">
+    <div>
+        <% if (folderId) { %>
+            <% const currentFolder = entities.find(e => e.id === folderId) || directories?.find(d => d.id === folderId) %>
+            <% if (currentFolder) { %>
+                <p><%= currentFolder.name %></p>
+            <% } %>
+        <% } %>
+    </div>
+
+    <div>
+        <!-- <button class="download">Download</button> -->
+        <!---->
+        <!-- <select id="folder-share-expires" name="expiresIn"> -->
+        <!--     <option disabled selected hidden>Get URL</option> -->
+        <!--     <option value="1"><small>Expire in 1 hour</small></option> -->
+        <!--     <option value="7"><small>Expire in 7 hours</small></option> -->
+        <!--     <option value="24"><small>Expire in 24 hours</small></option> -->
+        <!-- </select> -->
+        <!-- <input type="text" class="copyLink"/> -->
+    </div>
+</dialog>
+
+<%- include('tree', { baseUrl }) %>
