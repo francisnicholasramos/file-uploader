@@ -1,30 +1,48 @@
 <div class="breadcrumbs">
-    <% if (rootFolder.id === null) { %>
-        <a href="/">
-            <%= rootFolder.name %>'s storage
+    <% if (rootDirectory.id === null) { %>
+        <a href="/" class="user">
+            <%= rootDirectory.name %>'s storage
         </a>
 
         <% if (pathSegments.length) { %> 
-            <span>
+            <span class="chain-link">
                 >
             </span>
         <% } %>
     <% } %>
-    
-    <div class="path-links">
-    <% if (pathSegments?.length > 0) { %>
-    <% pathSegments.forEach((segment, index) => { %>
-        <a href="/storage/<%= segment.id %>">
-            <%= segment.name %>
-        </a>
 
-        <% if (index < pathSegments.length - 1) { %>
-            <span> 
-                >
-            </span>
+    <div class="path-link">
+        <% if (baseUrl.includes('public')) { %>
+            <% const index = pathSegments.findIndex(el => el.id === rootDirectory.id) %>
+            <% const publicSegments = pathSegments.slice(index) %>
+
+            <% publicSegments.forEach((segment, index) => { %>
+                <a href="<%= baseUrl %>/<%= segment.id %>" class="directory">
+                    <%= segment.name %>
+                </a>
+                
+                <% if (index < publicSegments.length - 1) { %>
+                    <span class="chain-link"> 
+                        >
+                    </span>
+                <% } %>
+            <% }) %>
+
+        <% } else { %>
+            <% if (pathSegments?.length > 0) { %>
+                <% pathSegments.forEach((segment, index) => { %>
+                    <a href="<%= baseUrl %>/<%= segment.id %>" class="directory">
+                        <%= segment.name %>
+                    </a>
+
+                    <% if (index < pathSegments.length - 1) { %>
+                    <span class="chain-link"> 
+                        >
+                    </span>
+                    <% } %>
+                <% }) %>
+            <% } %>
         <% } %>
-    <% }) %>
-    <% } %>
     </div>
 
 </div>
