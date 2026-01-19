@@ -1,7 +1,3 @@
-<script id="entity-data" type="application/json">
-    <%- JSON.stringify(entities) %>
-</script>
-
 <button class="btn-secondary" id="file" data-target="new-file">New File</button>
 <button class="btn-secondary" id="folder" data-target="new-folder">New Folder</button>
 <button class="btn-secondary" id="share" data-target="share-folder">Share Folder</button>
@@ -16,7 +12,7 @@
     >
         
         <div class="dialog-title"> 
-            <label for="file">New File</label>
+            <h4>New File</h4>
             <button class="closeModal">x</button>
         </div>
         
@@ -38,7 +34,7 @@
         <input type="hidden" name="parentId" value="<%= folderId || null %>" />
 
         <div class="dialog-title"> 
-            <label for="dir">Directory</label>
+            <h4>Directory</h4>
         </div>
 
         <input type="text" name="dir" id="dir" placeholder="Untitled folder"/>
@@ -49,25 +45,27 @@
 
 <!-- shared folder button -->
 <dialog id="share-folder" class="navigation-dialog">
+    <h4>Share Folder</h4>
     <div>
-        <% if (folderId) { %>
-            <% const currentFolder = entities.find(e => e.id === folderId) || directories?.find(d => d.id === folderId) %>
+        <% if (folderId && pathSegments.length > 0) { %>
+            <% const currentFolder = pathSegments[pathSegments.length - 1] %>
             <% if (currentFolder) { %>
-                <p><%= currentFolder.name %></p>
+                <small>Name: </small>
+                <small><%= currentFolder.name %></small>
             <% } %>
         <% } %>
     </div>
 
+    <small>Duration</small>
     <div>
-        <!-- <button class="download">Download</button> -->
-        <!---->
-        <!-- <select id="folder-share-expires" name="expiresIn"> -->
-        <!--     <option disabled selected hidden>Get URL</option> -->
-        <!--     <option value="1"><small>Expire in 1 hour</small></option> -->
-        <!--     <option value="7"><small>Expire in 7 hours</small></option> -->
-        <!--     <option value="24"><small>Expire in 24 hours</small></option> -->
-        <!-- </select> -->
-        <!-- <input type="text" class="copyLink"/> -->
+        <select class="folder-share-expires" name="expiresAt">
+            <option disabled selected hidden>Generate Link</option>
+            <option value="1"><small>Expire in 1 hour</small></option>
+            <option value="7"><small>Expire in 7 hours</small></option>
+            <option value="24"><small>Expire in 24 hours</small></option>
+        </select>
+        <input type="text" class="copyLink"/>
+        <button class="btn-primary">Copy Link</button>
     </div>
 </dialog>
 
