@@ -1,6 +1,9 @@
 <button class="btn-secondary" id="file" data-target="new-file">New File</button>
 <button class="btn-secondary" id="folder" data-target="new-folder">New Folder</button>
-<button class="btn-secondary" id="share" data-target="share-folder">Share Folder</button>
+
+<% if (folderId && pathSegments.length > 0) { %>
+    <button class="btn-secondary" id="share" data-target="share-folder">Share Folder</button>
+<% } %>
 
 <!-- upload file -->
 <dialog id="new-file" class="navigation-dialog">
@@ -48,6 +51,7 @@
     <h4>Share Folder</h4>
     <div>
         <% if (folderId && pathSegments.length > 0) { %>
+            <!-- last element represents the currently viewing folder -->
             <% const currentFolder = pathSegments[pathSegments.length - 1] %>
             <% if (currentFolder) { %>
                 <small>Name: </small>
