@@ -5,11 +5,13 @@ import session from "express-session";
 import path from "node:path";
 import passport from "./config/passportConfig";
 import {isAuthenticated} from "./middleware/isAuthenticated";
-import "dotenv/config";
+// import "dotenv/config";
 
-import login from "./auth/auth.router";
+import auth from "./auth/auth.router";
 import fileRouter from "./entity/file/file.router";
 import folderRouter from "./entity/folder/folder.router";
+import shareRouter from "./share/share.router";
+import publicRouter from "./public/public.router";
 
 const app = express();
 
@@ -19,7 +21,7 @@ app.set('views', path.join(__dirname, "../src/views"));
 app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, "../public")));
-app.use("/scripts", express.static(path.join(__dirname, "scripts")));
+app.use("/js", express.static(path.join(__dirname, "js")));
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -35,13 +37,20 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/", login)
-app.use("/", isAuthenticated, folderRouter)
-app.use("/", isAuthenticated, fileRouter)
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+});
 
-// mispelled endpoints
+app.use(auth)
+app.get("/", (req, res) => res.redirect("/storage"))
+app.use("/files", isAuthenticated, fileRouter)
+app.use("/storage", isAuthenticated, folderRouter)
+app.use("/share", isAuthenticated, shareRouter)
+app.use("/public", publicRouter) 
+
 app.use((req, res) => {
-    if (!req.isAuthenticated()) {
+    if (req.isAuthenticated()) {
         res.status(404).send("404 page not found.")
     } else {
         res.redirect("/login")
