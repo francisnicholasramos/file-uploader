@@ -7,23 +7,20 @@ import {getFileById,
         deleteEntityById
 } from "../entities.repository";
 
-// CRUD operation 
-
 export const handleFileUpload = async (req:Request, res:Response, next:NextFunction) => {
     try {
         const userId = req.user?.id;
 
         if (!userId) throw new createError.Unauthorized()
 
-            // req.file is the name of the user's file in the form, 'uploaded_file'
-            const { file } = req
-            const parentId = Number(req.body.parentId) || null
+        const { file } = req
+        const parentId = Number(req.body.parentId) || null // could be null for ROOT folders
 
-            const { data, error } = await uploadFile(userId, parentId, file)
-            if (error) {
-                return res.redirect(`/?error=${encodeURIComponent(error.message)}`)
-            }
-            res.redirect('/')
+        const { data, error } = await uploadFile(userId, parentId, file)
+        if (error) {
+            return res.redirect(`/storage/${parentId}?error=${encodeURIComponent(error.message)}`)
+        }
+        res.redirect(parentId ? `/storage/${parentId}`: '/storage')
     } catch (error) {
         next(error)
     }
@@ -36,20 +33,24 @@ export const handleFileDownload = async (
 ) => {
     try {
         const fileId = Number(req.params.fileId)
-        const arbitrary = await getFileById(fileId)
+        const file = await getFileById(fileId)
 
-        if (!arbitrary) throw new createError.NotFound()
+        if (!file) {
+            return res.status(404).json({
+                Not_Found: 'This file does not exist!'
+            })
+        }
 
-            const {name: filename, parentId} = arbitrary;
-            const filePath = `${req.user?.id}/${filename}`;
+        const {name: filename, parentId} = file;
+        const filePath = `${req.user?.id}/${filename}`;
 
-            const fileDownloadUrl = await storage.getFileUrl(filePath, 60, {download: true})
+        const fileDownloadUrl = await storage.getFileUrl(filePath, 60, {download: true})
 
-            if (fileDownloadUrl) {
-                res.redirect(fileDownloadUrl)
-            } else {
-                res.redirect(`/?error=${defaultErrorQuery}`)
-            }
+        if (fileDownloadUrl) {
+            res.redirect(fileDownloadUrl)
+        } else {
+            res.redirect(`/?error=${defaultErrorQuery}`)
+        }
     } catch (error) {
         next(error);
     }
