@@ -32,6 +32,7 @@ export const publicDirectoryUrl = async (
         )
 
         res.render("public", {
+            title: 'Public',
             sharedDirectoryId,
             folderId,
             rootDirectory,
