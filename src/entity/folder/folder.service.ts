@@ -46,8 +46,8 @@ export const getFolderEntities = async (
 
 export const getPublicDirectoryData = async (
     userId: number,
-    folderId: number,
-    rootFolderId: number
+    rootFolderId: number,
+    folderId: number
 ) => {
     const entities = await getDirectoryContents(folderId)
 
