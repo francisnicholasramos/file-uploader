@@ -1,5 +1,11 @@
-<!-- TODO: persistent expanded tree  -->
-<div>
+<fieldset>
+  <legend>Folder Explorer</legend>
+    <a href="<%= baseUrl %>/<%= rootDirectory.id %>"
+         class="directory rootDirectory"
+    >
+          <%= rootDirectory.name %>
+    </a>
+
     <% function renderTree(directory, level=0) { %>
         <% directory.forEach((dir, index) => { %>
 
@@ -24,5 +30,5 @@
     <% } %>
 
     <%= renderTree(directories) %>
-</div>
+</fieldset>
 
