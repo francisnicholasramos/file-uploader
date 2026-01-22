@@ -8,8 +8,9 @@ const upload = multer({ storage: multer.memoryStorage() });
 const router = Router();
 
 router.post('/uploadFile', 
-            upload.single("file"), 
-            handleFileUpload)
+    upload.single("file"), 
+    handleFileUpload
+)
 
 router.get("/download/:fileId", handleFileDownload)
 
