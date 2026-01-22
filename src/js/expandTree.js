@@ -1,6 +1,6 @@
 function expandDirectory() {
     const path = window.location.pathname;
-    const id = path.split("/storage/").pop();
+    const id = path.split("/").pop();
 
     if (!id || id === '') return;
 
