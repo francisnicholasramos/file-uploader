@@ -18,8 +18,6 @@ export const getFolder = async (
 
         const folderId = Number(req.params.folderId)
 
-        console.log(folderId)
-        
         const rootDirectory = {id: null, name: username}
 
         const entities = !folderId 
