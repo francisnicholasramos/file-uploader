@@ -1,42 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Index</title>
-        <link href="/css/globals.css" rel="stylesheet">
-        <link href="/css/index.css" rel="stylesheet">
-    </head>
-    <body>
-        <h2>Index page</h2>
-        <div class="container">
-            <div>
-                <form 
-                    action="/uploadFile" 
-                    method="POST"
-                    enctype="multipart/form-data"
-                >
-                    <input type="file" name="file" />
-                    <button type="submit">Test the submit</button>
-                </form>
+<%- include('partials/header') %>
+<%- include('partials/file-modal') %>
 
-                <div class="content">
-                    contents here
-                </div>
+<div class="container">
+    <!-- navigation -->
+    <div class="navigation-section">
+        <%- include('partials/sidebar') %>
+    </div>
 
+    <!-- storage items section -->
+    <div class="storage-items">
+        <%- include('partials/breadcrumbs') %>
 
-                <% console.log("** logs **", entities) %>
-                <% for (let i = 0; i < entities.length; i++) { %>
-                    <p>
-                        <%= entities[i].name %>
-                    </p>
-                <% } %>
+        <%- include('partials/data') %>
+    </div>
+</div>
 
-                  
-            </div>
-            <div></div>
-        </div>
-    </body>
-
-</html>
+<%- include('partials/footer') %>
 

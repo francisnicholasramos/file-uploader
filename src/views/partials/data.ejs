@@ -1,0 +1,24 @@
+<script id="entity-data" type="application/json">
+    <%- JSON.stringify(entities) %>
+</script>
+
+<% for (let i = 0; i < entities.length; i++) { %>
+    <% const isFolder = entities[i].type === 'DIR' %>
+
+    <% const dirUrl = `${baseUrl}/${entities[i].id}` %>
+
+        <% if (isFolder) { %> 
+            <a href="<%= dirUrl %>" 
+                class="folder entities"
+            >
+                <%= entities[i].name %>
+            </a>
+        <% } else { %>
+            <button   
+              class="file entities" 
+              data-id="<%= entities[i].id %>"
+            >
+            <%= entities[i].name %>
+            </button>
+        <% } %>
+<% } %>
