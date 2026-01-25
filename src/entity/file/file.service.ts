@@ -15,13 +15,15 @@ export const uploadFile = async (
 
     const bucketName = process.env.SUPABASE_BUCKET as string;
 
+    const bucketFileName = crypto.randomUUID();
+
     const options = {
         contentType: mimetype,
         upsert: false,
         duplex: 'half' as 'half' | 'full',
     }
 
-    const filePath = `${userId}/${originalname}`
+    const filePath = `${userId}/${bucketFileName}`
 
     const bufferStream = new Readable()
     bufferStream.push(buffer)
@@ -43,12 +45,11 @@ export const uploadFile = async (
 
         return {
             data: null,
-            // error: new Error(defaultError)
         }
     }
 
     // send metadata to database
-    await createFile(originalname, mimetype, size, userId, parentId)
+    await createFile(originalname, bucketFileName, mimetype, size, userId, parentId)
 
     return {
         data,

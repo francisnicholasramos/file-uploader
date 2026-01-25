@@ -3,6 +3,7 @@ import type {PathSegmentEntity} from "../types/types.ts";
 
 export const createFile = async (
     name: string,
+    fileName: string,
     mimetype: string,
     size: number,
     userId: number,
@@ -12,6 +13,7 @@ export const createFile = async (
         data: {
             type: "FILE",
             name, 
+            bucketFile: fileName,
             mimeType: mimetype,
             size,
             parentId,
