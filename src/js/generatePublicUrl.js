@@ -1,9 +1,13 @@
 function getShareFileUrl() {
     // target only what's belong to "modal" scope
-    document.querySelectorAll('.modal select').forEach(select => {
+    document.querySelectorAll('.file-modal select').forEach(select => {
+        const modal = select.closest(".file-modal");
+        const inputLink = modal.querySelector(".copyLink")
+
+        inputLink.style.display = 'none'
+
         select.addEventListener('change', async (e) => {
             e.preventDefault();
-            const modal = e.target.closest('.modal')
             const expiresIn = e.target.value
             const fileId = modal.dataset.id
             const generatedLink = modal.querySelector('.copyLink')
@@ -16,7 +20,9 @@ function getShareFileUrl() {
                     const data = await response.json()
 
                     if (response.ok && data.url) {
+                        inputLink.style.display = 'block'
                         generatedLink.value = data.url;
+                        select.style.display = 'none'
                         generatedLink.disabled = false
                     }
                 } catch (err) {
@@ -51,6 +57,7 @@ function getShareDirectoryUrl() {
                     const data = await res.json()
 
                     if (res.ok && data.publicDirectoryUrl) {
+                        select.style.display = 'none'
                         inputLink.style.display = 'block'
                         inputLink.value = data.publicDirectoryUrl;
                         inputLink.disabled = false
@@ -60,6 +67,7 @@ function getShareDirectoryUrl() {
                         copyBtn.addEventListener("click", () => {
                             navigator.clipboard.writeText(data.publicDirectoryUrl)
                             copyBtn.textContent = "Copied!"
+                            copyBtn.disabled = true
                         })
                     }
                 } catch (error) {
