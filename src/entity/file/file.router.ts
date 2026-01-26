@@ -1,7 +1,10 @@
 import {Router} from "express";
 import multer from "multer";
 
-import {handleFileUpload, handleFileDownload} from "./file.controller";
+import {handleFileUpload, 
+        handleFileDownload,
+        handleDeleteFile
+} from "./file.controller";
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -13,5 +16,7 @@ router.post('/uploadFile',
 )
 
 router.get("/download/:fileId", handleFileDownload)
+
+router.delete("/:fileId", handleDeleteFile)
 
 export default router;

@@ -11,12 +11,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     download.forEach(btn => {
         btn.addEventListener('click', () => {
-            const modal = btn.closest('.modal')
+            const modal = btn.closest('.file-modal')
             const fileId = modal ? modal.dataset.id : btn.dataset.id
             const file = entityMap[fileId]
 
             if (file) {
                 window.location.href = `/files/download/${fileId}`
+            }
+        })
+    })
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+    const deleteFile = document.querySelectorAll('.delete')
+
+    deleteFile.forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const modal = btn.closest('.file-modal')
+            const fileId = modal ? modal.dataset.id : btn.dataset.id
+            const file = entityMap[fileId]
+
+            if (file) {
+                await fetch(`/files/${fileId}`, {method: 'DELETE'})
             }
         })
     })

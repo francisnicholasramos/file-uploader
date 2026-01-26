@@ -49,7 +49,7 @@ export const handleFileDownload = async (
         if (fileDownloadUrl) {
             res.redirect(fileDownloadUrl)
         } else {
-            res.redirect(`/?error=${defaultErrorQuery}`)
+            res.redirect(`/${parentId}/?error=${defaultErrorQuery}`)
         }
     } catch (error) {
         next(error);
@@ -70,12 +70,12 @@ export const handleDeleteFile = async (
         const file = await getFileById(fileId)
         if (!file) throw new createError.NotFound()
 
-            const {name, parentId} = file;
+            const {bucketFile, parentId} = file;
             await deleteEntityById(fileId);
-            res.redirect(`/?success=${encodeURIComponent}`)
+            res.redirect(`/storage/${parentId}/?success=${encodeURIComponent}`)
 
             const bucketName = process.env.SUPABASE_BUCKET as string;
-            process.nextTick(() => storage.deleteFile(bucketName, `${userId}/${name}`))
+            process.nextTick(() => storage.deleteFile(bucketName, `${userId}/${bucketFile}`))
     } catch (error) {
         next(error)
     }
