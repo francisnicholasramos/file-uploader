@@ -22,9 +22,9 @@ export const shareFile = async (
         if (!file) throw new createError.NotFound()
 
         // {property: arbitraryVariable}
-        const {name: filename} = file
+        const {bucketFile: bucketFileName} = file
 
-        const filePath = `${req.user?.id}/${filename}`
+        const filePath = `${req.user?.id}/${bucketFileName}`
         const publicUrl = await storage.getFileUrl(filePath, duration)
 
         if (!publicUrl) return res.status(500).json({error: defaultError})
@@ -32,7 +32,7 @@ export const shareFile = async (
         res.json({
             url: publicUrl,
             expirationTime: duration,
-            filename: filename
+            filename: bucketFileName
         })
     } catch (error) {
         next(error)
