@@ -1,0 +1,52 @@
+<script id="entity-data" type="application/json">
+    <%- JSON.stringify(entities) %>
+</script>
+
+<% for (let i=0; i < entities.length; i++) { %>
+    <% const isFolder = entities[i].type === 'DIR' %>
+    <dialog class="file-modal" data-id="<%= entities[i].id %>"> 
+        <button data-close-modal>x</button>
+        <div class="metadata"> 
+            <p>
+                <b>
+                    <%= entities[i].name %>
+                </b>
+            </p>
+
+            <small>
+                <%= entities[i].mimeType %> - 12.02 KB
+            </small>
+
+            <br/><br/>
+        </div>
+
+        <div>
+            <div>
+                <button class="download">Download</button>
+
+                <% if (!baseUrl.includes("public")) { %>
+                <select class="share-file" name="expiresIn">
+                    <option disabled selected hidden>Get URL</option>
+                    <option value="1"><small>Expire in 1 hour</small></option>
+                    <option value="7"><small>Expire in 7 hours</small></option>
+                    <option value="24"><small>Expire in 24 hours</small></option>
+                </select>
+                <% } %>
+            </div>
+
+            <% if (!baseUrl.includes("public")) { %>
+            <div>
+                <input type="text" class="copyLink"/>
+            </div>
+            <% } %>
+        </div>
+
+        <% if (!baseUrl.includes("public")) { %>
+        <nav class="line"></nav>
+
+        <button class="delete">Delete file</button>
+        <% } %>
+    </dialog>
+<% } %>
+
+<script src="/js/modalDetails.js"></script>
