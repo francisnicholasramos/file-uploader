@@ -37,6 +37,13 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("new-folder").showModal()
       })
     }
+
+    const closeButtons = document.querySelectorAll(".closeModal");
+    closeButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            button.closest('dialog').close();
+        });
+    });
 })
 
 document.addEventListener("DOMContentLoaded", () => {
