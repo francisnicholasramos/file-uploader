@@ -1,8 +1,8 @@
-export const formatDate = (timestamp: any) => {
-  return Intl.DateTimeFormat('en-US', {
+export const formatDate = (timestamp: string) => {
+  return new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  }).format(timestamp)
+    timeZone: 'UTC',
+  }).format(new Date(timestamp))
 }
-
