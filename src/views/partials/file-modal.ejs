@@ -17,7 +17,12 @@
                 <%= entities[i].mimeType %> - 12.02 KB
             </small>
 
-            <br/><br/>
+            <br/>
+
+            <small>
+                <%= formatDate(entities[i].createdAt) %> - 
+                <%= new Date(entities[i].createdAt).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}) %>
+            </small>
         </div>
 
         <div>
