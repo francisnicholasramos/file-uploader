@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const modal = btn.closest('.file-modal')
             const fileId = modal ? modal.dataset.id : btn.dataset.id
             const file = entityMap[fileId]
-            const fileName = file.name
+            const fileName = file.bucketFile
 
             if (file) {
                 window.location.href = `/public/${sharedFolderId}/download/${fileId}?filename=${encodeURIComponent(fileName)}`
