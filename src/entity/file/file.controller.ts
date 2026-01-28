@@ -41,8 +41,8 @@ export const handleFileDownload = async (
             })
         }
 
-        const {name: filename, parentId} = file;
-        const filePath = `${req.user?.id}/${filename}`;
+        const {bucketFile, parentId} = file;
+        const filePath = `${req.user?.id}/${bucketFile}`;
 
         const fileDownloadUrl = await storage.getFileUrl(filePath, 60, {download: true})
 
