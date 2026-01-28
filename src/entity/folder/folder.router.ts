@@ -1,8 +1,13 @@
 import {Router} from "express";
-import {getFolder} from "@/entity/folder/folder.controller";
+import {
+    getFolder,
+    handleCreateDirectory
+} from "@/entity/folder/folder.controller";
 
 const router = Router();
 
-router.get("/", getFolder);
+router.get(["/", "/:folderId"], getFolder);
+
+router.post("/createDirectory", handleCreateDirectory)
 
 export default router;
