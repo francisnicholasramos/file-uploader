@@ -5,7 +5,6 @@ import session from "express-session";
 import path from "node:path";
 import passport from "./config/passportConfig";
 import {isAuthenticated} from "./middleware/isAuthenticated";
-// import "dotenv/config";
 
 import auth from "./auth/auth.router";
 import fileRouter from "./entity/file/file.router";
