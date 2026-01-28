@@ -31,6 +31,7 @@ export const createDirectory = async (
         data: {
             type: "DIR",
             name,
+            bucketFile: "",
             userId,
             parentId
         }
