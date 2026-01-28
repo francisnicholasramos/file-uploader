@@ -5,6 +5,8 @@ import {
     getRootFolderData,
     getFolderEntities
 } from "./folder.service";
+import {formatDate} from "../../utils/formatDate";
+import {formatBytes} from "../../utils/formatBytes";
 
 export const getFolder = async (
     req: Request,
@@ -28,7 +30,9 @@ export const getFolder = async (
             folderId,
             ...entities,
             rootDirectory,
-            baseUrl: '/storage'
+            baseUrl: '/storage',
+            formatDate,
+            formatBytes
         })
 
     } catch (error) {

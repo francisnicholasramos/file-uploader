@@ -3,6 +3,8 @@ import {storage} from "../storage/storage.repository";
 import {defaultErrorQuery} from "../utils/errorMessages";
 import createError from "http-errors";
 import {getPublicDirectoryData} from "../entity/folder/folder.service";
+import {formatDate} from "../utils/formatDate";
+import {formatBytes} from "../utils/formatBytes";
 
 export const publicDirectoryUrl = async (
     req:Request, 
@@ -38,6 +40,8 @@ export const publicDirectoryUrl = async (
             rootDirectory,
             ...publicDirectoryData,
             baseUrl: `/public/${sharedDirectoryId}`,
+            formatDate,
+            formatBytes
         })
 
     } catch (error) {
@@ -45,7 +49,7 @@ export const publicDirectoryUrl = async (
     }
 }
 
-export const publicFileUrl = async (
+export const publicFileDownload = async (
     req:Request,
     res:Response,
     next:NextFunction
