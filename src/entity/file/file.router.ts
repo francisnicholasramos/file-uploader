@@ -17,6 +17,6 @@ router.post('/uploadFile',
 
 router.get("/download/:fileId", handleFileDownload)
 
-router.delete("/:fileId", handleDeleteFile)
+router.get("/deleteFile/:fileId", handleDeleteFile)
 
 export default router;

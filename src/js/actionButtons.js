@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const file = entityMap[fileId]
 
             if (file) {
-                await fetch(`/files/${fileId}`, {method: 'DELETE'})
+                window.location.href = `/files/deleteFile/${fileId}`
             }
         })
     })
