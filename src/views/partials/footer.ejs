@@ -1,6 +1,13 @@
+<% if (baseUrl.includes("public")) { %>
+    <script src="/js/publicActionButtons.js"></script>
+<% } %>
+
+<% if (baseUrl.includes("storage")) { %>
+    <script src="/js/actionButtons.js"></script>
+<% } %>
+
 <script src="/js/horizontalScroll.js"></script>
 <script src="/js/generatePublicUrl.js"></script>
-<script src="/js/actionButtons.js"></script>
 <script src="/js/expandTree.js"></script>
 
 </body>

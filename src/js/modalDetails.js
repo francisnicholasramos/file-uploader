@@ -54,3 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 })
+
+document.addEventListener("DOMContentLoaded", () => {
+    const deleteFolder = document.getElementById("delete");
+    if (deleteFolder) {
+        deleteFolder.addEventListener("click", () => {
+            document.getElementById("delete-folder").showModal();
+        });
+    }
+})

@@ -1,12 +1,14 @@
 import {Request, Response, NextFunction} from "express";
-import {createDirectory} from "../../entity/entities.repository";
-import createError from "http-errors";
-import {
-    getRootFolderData,
-    getFolderEntities
-} from "./folder.service";
+import {getRootFolderData, getFolderEntities} from "./folder.service";
+import {createDirectory, 
+        getDirectoryById, 
+        deleteEntityById
+} from "../../entity/entities.repository";
+import {storage} from "../../storage/storage.repository";
+import {getAllChildren} from "../../entity/entities.repository";
 import {formatDate} from "../../utils/formatDate";
 import {formatBytes} from "../../utils/formatBytes";
+import createError from "http-errors";
 
 export const getFolder = async (
     req: Request,
@@ -64,3 +66,33 @@ export const handleCreateDirectory = async (
 
 }
 
+export const handleDeleteDirectory = async (
+    req:Request,
+    res:Response,
+    next:NextFunction
+) => {
+    try {
+        const userId = req.user?.id;
+
+        if (!userId) throw new createError.Unauthorized();
+
+        const folderId = Number(req.params.folderId);
+
+        const folder = await getDirectoryById(folderId);
+
+        if (!folder) throw new createError.NotFound();
+
+        await deleteEntityById(folderId)
+
+        res.redirect(`/storage/${folder.parentId}/?success=${encodeURIComponent(`deleted folder=${folder.name}`)}`)
+
+        // recursively delete all children
+        const filenames = await getAllChildren(userId, folderId)
+        const bucketName = process.env.SUPABASE_BUCKET || ''
+        for (const filename of filenames) {
+            await storage.deleteFile(bucketName, `${userId}/${filename}`)
+        }
+    } catch (err) {
+        next(err)
+    }
+}

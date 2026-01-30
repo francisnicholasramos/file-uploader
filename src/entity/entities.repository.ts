@@ -139,12 +139,39 @@ export const getBreadCrumbs = async (entityId?: number) => {
 export const getFileById = async (id: number) =>
     prisma.entity.findUnique({where: {id, type: 'FILE'} })
 
+export const getDirectoryById = async (id: number) =>
+    prisma.entity.findUnique({where: {id, type: 'DIR'} })
+
 export const deleteEntityById = async (id: number) => {
     return prisma.entity.delete({
         where: {
             id,
         }
     })
+}
+
+export const getAllChildren = async (userId: number, parentId: number) => {
+    const entities = await prisma.entity.findMany({
+        where: {userId, parentId},
+        select: {
+            id: true,
+            type: true,
+            name: true
+        }
+    })
+
+    const filenames: string[] = [];
+
+    for (const entity of entities) {
+        if (entity.type === 'FILE') {
+            filenames.push(entity.name)
+        } else if (entity.type === 'DIR') {
+            const childNames = await getAllChildren(userId, entity.id)
+            filenames.push(...childNames)
+        }
+    }
+
+    return filenames;
 }
 
 export const isDescendantOf = async (parentId: number, childId: number) => {
@@ -169,7 +196,6 @@ export const isDescendantOf = async (parentId: number, childId: number) => {
 
     return false;
 }
-
 
 export const getSharedDirectoryById = async (id: string) => {
     return prisma.sharedFolder.findUnique({
@@ -208,4 +234,3 @@ export const getDirectoryContents = async (
 // })
 
 // createDirectory('thirdLevelDir', 1, 23)
-

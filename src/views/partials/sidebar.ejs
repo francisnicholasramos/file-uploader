@@ -2,6 +2,10 @@
 <button class="btn-secondary" id="folder" data-target="new-folder">New Folder</button>
 
 <% if (folderId && pathSegments.length > 0) { %>
+    <button class="btn-secondary" id="delete" data-target="delete-folder">Delete Folder</button>
+<% } %>
+
+<% if (folderId && pathSegments.length > 0) { %>
     <button class="btn-secondary" id="share" data-target="share-folder">Share Folder</button>
 <% } %>
 
@@ -16,7 +20,7 @@
         
         <div class="dialog-title"> 
             <h4>New File</h4>
-            <button class="closeModal">x</button>
+            <button type="button" class="closeModal">x</button>
         </div>
         
         <input type="file" name="file" id="file" />
@@ -37,7 +41,8 @@
         <input type="hidden" name="parentId" value="<%= folderId || null %>" />
 
         <div class="dialog-title"> 
-            <h4>Directory</h4>
+            <h4>New Folder</h4>
+            <button type="button" class="closeModal">x</button>
         </div>
 
         <input type="text" name="dir" id="dir" placeholder="Untitled folder"/>
@@ -46,9 +51,32 @@
     </form>
 </dialog>
 
+<!-- delete folder -->
+<dialog id="delete-folder" class="navigation-dialog">
+    <div>
+        <% if (folderId && pathSegments.length > 0) { %>
+            <!-- last element represents the currently viewing folder -->
+            <% const currentFolder = pathSegments[pathSegments.length - 1] %>
+            <% if (currentFolder) { %>
+                <small>Delete folder </small>
+                <small>
+                    <i>
+                        <%= currentFolder.name %>?
+                    </i>
+                </small>
+            <% } %>
+        <% } %>
+    </div>
+
+    <button class="deleteFolder">Delete folder</button>
+</dialog>
+
 <!-- shared folder button -->
 <dialog id="share-folder" class="navigation-dialog">
-    <h4>Share Folder</h4>
+    <div>
+        <h4>Share Folder</h4>
+        <button type="button" class="closeModal">x</button>
+    </div>
     <div>
         <% if (folderId && pathSegments.length > 0) { %>
             <!-- last element represents the currently viewing folder -->
@@ -62,8 +90,8 @@
 
     <small>Duration</small>
     <div>
-        <select class="folder-share-expires" name="expiresAt">
-            <option disabled selected hidden>Generate Link</option>
+        <select name="expiresAt">
+            <option disabled selected hidden>Generate Share Link</option>
             <option value="1"><small>Expire in 1 hour</small></option>
             <option value="7"><small>Expire in 7 hours</small></option>
             <option value="24"><small>Expire in 24 hours</small></option>

@@ -6,6 +6,7 @@ const entityMap = entities.reduce((map, entity) => {
   return map;
 }, {});
 
+// download file
 document.addEventListener('DOMContentLoaded', () => {
     const download = document.querySelectorAll('.download')
 
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 })
 
+// delete file
 document.addEventListener('DOMContentLoaded', () => {
     const deleteFile = document.querySelectorAll('.delete')
 
@@ -33,6 +35,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (file) {
                 window.location.href = `/files/deleteFile/${fileId}`
+            }
+        })
+    })
+})
+
+// delete folder
+document.addEventListener('DOMContentLoaded', () => {
+    const deleteFolder = document.querySelectorAll('.deleteFolder')
+
+    deleteFolder.forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const path = window.location.pathname;
+            const folderId = path.split("/").pop();
+
+            if (!folderId || folderId === '') return;
+
+            if (folderId) {
+                window.location.href = `/storage/deleteFolder/${folderId}`
             }
         })
     })
