@@ -1,9 +1,20 @@
-<%- include('partials/header', { baseUrl }) %>
-<%- include('partials/tree', { baseUrl }) %>
+<%- include('partials/header') %>
+<%- include('partials/file-modal') %>
 
-<div>
-  <%- include('partials/breadcrumbs', { baseUrl }) %>
+<div class="container">
+    <!-- navigation -->
+    <div class="navigation-section">
+      <%- include('partials/tree', { baseUrl })  %>
+    </div>
+
+    <div class="storage-items">
+        <%- include('partials/breadcrumbs', { baseUrl }) %>
+
+        <%- include('partials/data') %>
+    </div>
 </div>
+
+<div id="data-container" data-id="<%= sharedDirectoryId %>"></div>
 
 <%- include('partials/footer') %>
 
