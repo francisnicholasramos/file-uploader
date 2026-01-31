@@ -28,7 +28,6 @@ function getShareFileUrl() {
                 } catch (err) {
                     generatedLink.value = 'Failed to generate URL'
                     generatedLink.disabled = true
-                    console.log('API Error', data)
                 }
             }
         })
