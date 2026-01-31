@@ -230,8 +230,6 @@ export const getDirectoryContents = async (
     })
 }
 
-getAllChildren(1, 25).then(d => console.log('test', d))
-
 // test 
 // getDirectoryTree(1, null).then(data => {
 //     console.dir(data, {depth: null}) // spread nested children
