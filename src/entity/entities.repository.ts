@@ -156,7 +156,8 @@ export const getAllChildren = async (userId: number, parentId: number) => {
         select: {
             id: true,
             type: true,
-            name: true
+            name: true,
+            bucketFile: true
         }
     })
 
@@ -164,6 +165,7 @@ export const getAllChildren = async (userId: number, parentId: number) => {
 
     for (const entity of entities) {
         if (entity.type === 'FILE') {
+            filenames.push(entity.bucketFile)
             filenames.push(entity.name)
         } else if (entity.type === 'DIR') {
             const childNames = await getAllChildren(userId, entity.id)
@@ -227,6 +229,8 @@ export const getDirectoryContents = async (
       }
     })
 }
+
+getAllChildren(1, 25).then(d => console.log('test', d))
 
 // test 
 // getDirectoryTree(1, null).then(data => {

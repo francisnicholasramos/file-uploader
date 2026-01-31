@@ -82,16 +82,16 @@ export const handleDeleteDirectory = async (
 
         if (!folder) throw new createError.NotFound();
 
-        await deleteEntityById(folderId)
-
-        res.redirect(`/storage/${folder.parentId}/?success=${encodeURIComponent(`deleted folder=${folder.name}`)}`)
-
         // recursively delete all children
         const filenames = await getAllChildren(userId, folderId)
         const bucketName = process.env.SUPABASE_BUCKET || ''
         for (const filename of filenames) {
             await storage.deleteFile(bucketName, `${userId}/${filename}`)
         }
+
+        await deleteEntityById(folderId)
+
+        res.redirect(`/storage/${folder.parentId}/?success=${encodeURIComponent(`deleted folder=${folder.name}`)}`)
     } catch (err) {
         next(err)
     }
