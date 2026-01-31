@@ -1,18 +1,78 @@
 .container {
   display: flex;
-  border: 1px solid;
   margin: auto;
-  padding: 5px;
+  min-height: 100vh;
+  width: 100%;
+  overflow-y: hidden;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: auto;
+  width: auto;
+  min-width: 300px;
+  max-width: 300px;
+}
+
+.auth-form > small {
+  color: #737373;
+}
+
+.auth-form > small > a {
+  color: #458588;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.auth-form > small > a:hover {
+  color: #83a598;
+}
+
+.auth-form > form {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.auth-form > form > button {
+  margin: 0 0 0 auto;
+}
+
+.errorMessage {
+  color: #1c1c1c;
+  padding: 0 0 0 5px;
+  background-color: #fb6150;
+  border-radius: 1px;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 0 10px 0 5px;
+  padding: 0 10px 0 10px;
 }
 
 .logo {
   color: #fabd2f;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.links > a {
+  color: #ebdbb2;
+  border: 1.9px solid #404040;
+  border-radius: 5px;
+  padding: 2px 10px 2px 10px;
+}
+
+.links > a:hover {
+  background-color: #333333;
 }
 
 /* user's name on display */
@@ -26,6 +86,7 @@
 .breadcrumbs {
   display: flex;
   align-items: center;
+  max-width: 100%;
   gap: 10px;
 }
 
@@ -41,29 +102,210 @@
   color: #928374;
 }
 
+/* navigation section */
+.navigation-section {
+  display: flex;
+  flex-direction: column;
+  min-width: 220px;
+  max-width: 220px;
+  border-top: 1px solid #404040;
+  border-right: 1px solid #404040;
+  gap: 10px;
+  padding: 9px 10px 5px 10px;
+  scroll-behavior: smooth;
+  overflow-x: auto; /* scrollbar when content exceeds */
+}
+
+.navigation-section:active {
+  cursor: grabbing;
+}
+
+/* navigation dialogs */
+dialog {
+  margin: auto;
+  inset: 0;
+}
+
+dialog[open] {
+  animation: fadeIn 0.3s ease;
+}
+
+.dialog-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.file-modal {
+  min-width: 300px;
+  width: 100%;
+  max-width: 400px;
+  padding: 5px 10px 10px 10px;
+  color: #ebdbb2;
+  background-color: #333;
+  border: none;
+  
+}
+
+.file-modal > div:last-of-type > div {
+  display: flex;
+  gap: 5px;
+}
+
+.file-modal > div:last-of-type > div:last-of-type {
+  display: flex;
+  padding: 3px 0 3px 0;
+}
+
+.file-modal > div:first-of-type > p {
+  padding: 10px 0 0 0;
+}
+
+.file-modal > div:first-of-type > small:last-of-type {
+  color: #737373;
+  padding: 0 0 10px 0;
+}
+
+.file-modal p {
+  color: #fabd2f; /* yellow */
+}
+
+/* .file-modal > button:first-child { */
+/*   float: right; */
+/* } */
+
+.metadata {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.metadata > button {
+  display: block;
+  width: fit-content;
+  margin: 0 0 10px auto;
+}
+
+.metadata > div:first-of-type {
+  height: 200px;
+  width: auto;
+  /* max-width: 300px; */
+  border: 1px solid #666;
+  /* overflow: hidden; */
+}
+
+.metadata > div:first-of-type > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+
+.share-file {
+  width: 100px;
+  border-radius: 4px;
+  border: none;
+}
+
+.copyLink {
+  min-width: 100%;
+}
+
+.line {
+  width: 100%;
+  border-top: 1px solid #666;
+}
+
+.delete {
+  margin: 5px 0 0 0;
+}
+
+.navigation-dialog {
+  padding: 0;
+  color: #ebdbb2;
+  background-color: #333;
+  border: none;
+}
+
+.navigation-dialog:last-of-type > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.navigation-dialog:last-of-type small:first-child {
+  color: #b8bb26;
+}
+
+.navigation-dialog:last-of-type small:nth-child(2) {
+  color: #fabd2f; /* yellow */
+  font-weight: bold;
+}
+
+.navigation-dialog:last-of-type > div:last-of-type small {
+  color: #ebdbb2;
+}
+
+.navigation-dialog:last-of-type {
+  padding: 5px 10px 10px 10px;
+  gap: 15px;
+  min-width: auto;
+  width: 310px;
+}
+
+.navigation-dialog:last-of-type > div:first-of-type {
+  display: flex;
+  justify-content: space-between;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* file & folder elements */
 .storage-items {
   display: flex;
   flex-direction: column;
-  padding: 0 10px 0 5px;
+  flex: 1; /* occupy remaining space */
+  padding: 0 10px 0 10px;
+  gap: 5px;
+  border-top: 1px solid #404040;
 }
 
-.entities:first-child {
-  border-top: 1px solid #b3b3b3;
+.file, .folder {
+  background: transparent;
+}
+
+.file:hover, .folder:hover {
+  background-color: #333333;
 }
 
 .file {
-  background-color: transparent;
+  color: #ebdbb2;
   text-align: start;
+  padding: 5px;
 }
 
 .folder {
   color: #8094b4;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #404040;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 /* tree */
 details summary { 
   list-style: none; 
+  font-size: 0.9rem;
 } 
 
 details { 
@@ -79,7 +321,7 @@ details::before {
   top: 0;
   bottom: 0;
   width: 1px;
-  background: #999;
+  background: #404040;
 }
 
 summary::before {
@@ -87,6 +329,11 @@ summary::before {
   position: absolute;
   left: -14px;
   color: #fe8019;
+}
+
+.rootDirectory {
+  font-size: 0.9rem;
+  padding: 0 0 0 2px;
 }
 
 .directory {
@@ -126,31 +373,14 @@ summary::before {
   padding: 0 5px 0 5px;
 }
 
-/* .modal { */
-/*   display: none; */
-/*   flex-direction: column; */
-/*   justify-content: center; */
-/*   gap: 5px; */
-/*   position: fixed; */
-/*   border: 1px solid; */
-/*   max-width: 500px; */
-/*   max-height: 500px; */
-/*   padding: 0.5rem; */
-/*   margin: auto; */
-/*   z-index: 50; */
-/*   background-color: #1c1c1c; */
-/*   inset: 0; */
-/* } */
-/**/
-/* .modal-backdrop { */
-/*   position: absolute; */
-/*   inset: 0; */
-/* } */
-/**/
-/* .modal-content { */
-/*   position: relative; */
-/*   z-index: 1; */
-/*   border: 1px solid red; */
-/* } */
-/**/
-/**/
+.btn-secondary {
+  background-color: #1c1c1c;
+  border: 1.9px solid #404040;
+  color: #ebdbb2;
+  text-align: start;
+  font-size: 0.9rem;
+}
+
+.btn-secondary:hover {
+  background-color: #333333;
+}

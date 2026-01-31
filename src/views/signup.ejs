@@ -5,14 +5,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Sign Up</title>
         <link href="/css/globals.css" rel="stylesheet">
+        <link href="/css/index.css" rel="stylesheet">
     </head>
     <body>
-        <div>
+        <div class="auth-form">
             <h2>Sign Up</h2>
+            <small>
+                Don't have an account? 
+                <a href="/login">Login</a>
+            </small>
             <form action="/signup" method="POST">
-                <input type="text" name="username" placeholder="username" />
-                <input type="text" name="password" placeholder="password" />
+                <input type="text" name="username" placeholder="username" required />
+                <input type="password" name="password" placeholder="password" required />
+
+              <% if (hasError) { %>
+                    <small class="errorMessage">
+                        <%= errorMessage %>
+                    </small>
+                <% } %>
+
                 <button type="submit">Submit</button>
+
             </form>
         </div>
     </body>

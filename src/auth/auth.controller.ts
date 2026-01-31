@@ -3,6 +3,8 @@ import passport from "../config/passportConfig";
 import {createUser} from "../users/local-users.repository";
 import {SignUpSchema} from "../models/schemas";
 import bcrypt from "bcrypt";
+import {ZodError} from "zod";
+import {defaultError} from "../utils/errorMessages";
 
 export const postLogin = passport.authenticate('local', {
     failureMessage: true,
@@ -10,17 +12,24 @@ export const postLogin = passport.authenticate('local', {
     failureRedirect: "/login"
 })
 
-export const postSignup = async (req:Request, res:Response, next:NextFunction) => {
+export const postSignup = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const {username, password} = await SignUpSchema.parseAsync(req.body);
-
         const hashedPassword = await bcrypt.hash(password, 10);
-
         await createUser(username, hashedPassword);
-        
         res.redirect("/");
     } catch (error) {
-        return next(error)
+        let errorMessage = defaultError;
+        
+        if (error instanceof ZodError && error.issues.length > 0) {
+            errorMessage = error.issues[0].message;
+        }
+        
+        req.errorMessage = errorMessage;  
+        res.render("signup", { 
+            errorMessage,         
+            hasError: true 
+        });
     }
 }
 
@@ -40,19 +49,30 @@ export const logout = async (req:Request, res:Response, next:NextFunction) => {
 export const login = async (req:Request, res:Response, next:NextFunction) => {
     try {
         if (req.isAuthenticated()) return res.redirect("/")
-        res.render("login")
+
+        // default to empty array (no message)
+        const message = req.session?.messages || [];
+
+        // clear messages so they don't persist
+        req.session!.messages = [];
+
+        res.render("login", {message})
     } catch (err) {
         next(err)
     }
 }
 
-export const signup = async (req:Request, res:Response, next:NextFunction) => {
+export const signup = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        if (req.isAuthenticated()) return res.redirect("/")
-        res.render("signup")
+        if (req.isAuthenticated()) return res.redirect("/");
+        
+        const errorMessage = req.errorMessage; 
+        
+        res.render("signup", {
+            errorMessage,
+            hasError: !!errorMessage
+        });
     } catch (err) {
-        next(err)
+        next(err);
     }
 }
-
-
