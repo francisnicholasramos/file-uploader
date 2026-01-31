@@ -1,4 +1,5 @@
 import {Router} from "express";
+import {cacheMiddleware} from "../../middleware/cacheMiddleware";
 import {
     getFolder,
     handleCreateDirectory,
@@ -7,7 +8,9 @@ import {
 
 const router = Router();
 
-router.get(["/", "/:folderId"], getFolder);
+router.get(["/", "/:folderId"], 
+           cacheMiddleware(5000),
+           getFolder);
 
 router.post("/createDirectory", handleCreateDirectory)
 
