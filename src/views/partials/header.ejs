@@ -3,16 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title><%= locals.title ? `${title} - Open Directory` : 'Open Directory' %></title>
+        <title><%= locals.title ? `${title}` : 'Open Directory' %></title>
         <link href="/css/globals.css" rel="stylesheet">
         <link href="/css/index.css" rel="stylesheet">
     </head>
     <body>
         <div class="header">
+          <a href="<%= baseUrl %>">
             <h2 class="logo">
-                OpenDirectory
+              OpenDirectory
             </h2>
-            <div>
+          </a>
+            <div class="links">
                 <% if (baseUrl.includes("public")) { %>
                     <a href="/login">Login</a>
                     <a href="/signup">Sign Up</a>
