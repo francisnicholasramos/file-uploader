@@ -6,5 +6,12 @@ namespace Express {
 
     interface Request {
         sharedFolder?: Prisma.SharedFolder
+        session: Session
+        errorMessage: string
+    }
+
+    interface Session {
+        messages?: string[]
+        destroy(callback?: (err: Error) => void): void
     }
 }
