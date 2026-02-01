@@ -6,10 +6,11 @@ namespace Express {
 
     interface Request {
         sharedFolder?: Prisma.SharedFolder
+        sortBy?: Prisma.EntityOrderByWithRelationInput[]
         session: Session
         errorMessage: string
     }
-
+   
     interface Session {
         messages?: string[]
         destroy(callback?: (err: Error) => void): void
