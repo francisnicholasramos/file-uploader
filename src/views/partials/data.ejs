@@ -11,14 +11,38 @@
             <a href="<%= dirUrl %>" 
                 class="folder entities"
             >
-                <%= entities[i].name %>
+                <div>
+                  <%= entities[i].name %>
+                </div>
+
+                <div>
+                  <p>
+                    --
+                  </p>
+
+                  <p>
+                    <%= formatDate(entities[i].createdAt) %>
+                  </p>
+                </div>
             </a>
         <% } else { %>
             <button   
               class="file entities" 
               data-id="<%= entities[i].id %>"
             >
-            <%= entities[i].name %>
+            <div>
+                <%= entities[i].name %>
+            </div>
+
+            <div>
+                <p>
+                    <%= formatBytes(entities[i].size) %>
+                </p>
+
+                <p>
+                    <%= formatDate(entities[i].createdAt) %> 
+                </p>
+            </div>
             </button>
         <% } %>
 <% } %>

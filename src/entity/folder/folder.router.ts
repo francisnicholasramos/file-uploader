@@ -1,5 +1,6 @@
 import {Router} from "express";
 import {cacheMiddleware} from "../../middleware/cacheMiddleware";
+import {handleSortQuery} from "../../middleware/handleSortQuery";
 import {
     getFolder,
     handleCreateDirectory,
@@ -9,6 +10,7 @@ import {
 const router = Router();
 
 router.get(["/", "/:folderId"], 
+           handleSortQuery,
            cacheMiddleware(5000),
            getFolder);
 

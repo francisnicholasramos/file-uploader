@@ -5,6 +5,7 @@ import createError from "http-errors";
 import {getPublicDirectoryData} from "../entity/folder/folder.service";
 import {formatDate} from "../utils/formatDate";
 import {formatBytes} from "../utils/formatBytes";
+import {generateSortLink} from "../utils/generateSortLink"
 
 export const publicDirectoryUrl = async (
     req:Request, 
@@ -14,7 +15,7 @@ export const publicDirectoryUrl = async (
     try {
         const sharedDirectoryId = req.params.sharedDirectoryId
 
-        const {sharedFolder} = req
+        const {sortBy, sharedFolder} = req
 
         if (!sharedFolder) throw new createError.NotFound()
 
@@ -30,7 +31,8 @@ export const publicDirectoryUrl = async (
         const publicDirectoryData = await getPublicDirectoryData(
             sharedFolder.userId,
             rootDirectory.id,
-            folderId
+            folderId,
+            sortBy
         )
 
         res.render("public", {
@@ -40,6 +42,7 @@ export const publicDirectoryUrl = async (
             rootDirectory,
             ...publicDirectoryData,
             baseUrl: `/public/${sharedDirectoryId}`,
+            generateSortLink,
             formatDate,
             formatBytes
         })

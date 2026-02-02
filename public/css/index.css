@@ -6,6 +6,7 @@
   overflow-y: hidden;
 }
 
+/* Login and SignUp */
 .auth-form {
   display: flex;
   flex-direction: column;
@@ -47,6 +48,7 @@
   border-radius: 1px;
 }
 
+/* header */
 .header {
   display: flex;
   justify-content: space-between;
@@ -169,10 +171,6 @@ dialog[open] {
   color: #fabd2f; /* yellow */
 }
 
-/* .file-modal > button:first-child { */
-/*   float: right; */
-/* } */
-
 .metadata {
   display: flex;
   flex-direction: column;
@@ -182,24 +180,22 @@ dialog[open] {
 .metadata > button {
   display: block;
   width: fit-content;
-  margin: 0 0 10px auto;
+  /* margin: 0 0 10px auto; FOR IMAGE BOTTOM SPACING */
+  margin: 0 0 0 auto;
 }
 
 .metadata > div:first-of-type {
   height: 200px;
   width: auto;
-  /* max-width: 300px; */
   border: 1px solid #666;
-  /* overflow: hidden; */
 }
 
-.metadata > div:first-of-type > img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
+/* .metadata > div:first-of-type > img { */
+/*   width: 100%; */
+/*   height: 100%; */
+/*   object-fit: contain; */
+/*   display: block; */
+/* } */
 
 .share-file {
   width: 100px;
@@ -267,6 +263,36 @@ dialog[open] {
   }
 }
 
+/* sort menu options */
+.sort-menu {
+  display: flex;
+  align-items: center;
+}
+
+.sort-menu a {
+  color: #666;
+  padding: 5px 0 5px 2px;
+  border-radius: 4px;
+}
+
+.sort-menu a:hover {
+  background-color: #262626;
+}
+
+.sort-menu > a { /* sort by name */
+  width: 100%;
+  max-width: 70%;
+}
+
+.sort-menu > div {
+  display: flex;
+  flex: 1;
+}
+
+.sort-menu > div > a {
+  width: 50%;
+}
+
 /* file & folder elements */
 .storage-items {
   display: flex;
@@ -286,9 +312,30 @@ dialog[open] {
 }
 
 .file {
+  display: flex;
   color: #ebdbb2;
   text-align: start;
   padding: 5px;
+}
+
+.file div:last-of-type {
+  font-size: 0.7rem;
+}
+
+.file > div:first-of-type {
+  width: 100%;
+  max-width: 70%;
+}
+
+.file > div:last-of-type {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.file > div:last-of-type > p {
+  width: 50%;
+  padding: 0 0 0 3px;
 }
 
 .folder {
@@ -300,6 +347,26 @@ dialog[open] {
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
+}
+
+.folder > div:first-of-type {
+  width: 100%;
+  max-width: 70%;
+}
+
+.folder > div:last-of-type {
+  font-size: 0.7rem;
+}
+
+.folder > div:last-of-type {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.folder > div:last-of-type > p {
+  width: 50%;
+  padding: 0 0 0 3px;
 }
 
 /* tree */

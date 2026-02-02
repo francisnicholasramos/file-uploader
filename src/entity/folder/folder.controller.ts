@@ -8,6 +8,7 @@ import {storage} from "../../storage/storage.repository";
 import {getAllChildren} from "../../entity/entities.repository";
 import {formatDate} from "../../utils/formatDate";
 import {formatBytes} from "../../utils/formatBytes";
+import {generateSortLink} from "../../utils/generateSortLink";
 import createError from "http-errors";
 
 export const getFolder = async (
@@ -22,19 +23,22 @@ export const getFolder = async (
 
         const folderId = Number(req.params.folderId)
 
+        const {sortBy} = req
+
         const rootDirectory = {id: null, name: username}
 
         const entities = !folderId 
-            ? await getRootFolderData(id)
-            : await getFolderEntities(folderId, id)
+            ? await getRootFolderData(id, sortBy)
+            : await getFolderEntities(folderId, id, sortBy)
 
         res.render("index", {
             folderId,
             ...entities,
             rootDirectory,
             baseUrl: '/storage',
+            generateSortLink,
             formatDate,
-            formatBytes
+            formatBytes,
         })
 
     } catch (error) {

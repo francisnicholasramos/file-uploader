@@ -1,3 +1,4 @@
+import type {Prisma} from "@prisma/client";
 import prisma from "../db/prismaClient";
 import type {PathSegmentEntity} from "../types/types.ts";
 
@@ -40,19 +41,24 @@ export const createDirectory = async (
 
 export const getDirEntityById = async (
     id: number,
+    sortBy: Prisma.EntityOrderByWithRelationInput[] = []
 ) => {
     return prisma.entity.findUnique({
         where: { id, type: 'DIR' },
         include: {
-            childEntities: true
+            childEntities: {orderBy: sortBy}
         }
     })
 }
 
-export const getUserEntities = async (userId: number) => {
-  return prisma.entity.findMany({
-    where: {userId, parentId: null},
-  })
+export const getUserEntities = async (
+    userId: number,
+    sortBy: Prisma.EntityOrderByWithRelationInput[] = []
+) => {
+    return prisma.entity.findMany({
+        where: {userId, parentId: null},
+        orderBy: sortBy
+    })
 }
 
 export const getDirectoryTree = async (
@@ -222,11 +228,13 @@ export const createSharedDirectory = async (
 
 export const getDirectoryContents = async (
     parentId: number | null,
+    sortBy: Prisma.EntityOrderByWithRelationInput[] = []
 ) => {
     return prisma.entity.findMany({
-      where: { 
-        parentId
-      }
+        where: { 
+            parentId
+        },
+        orderBy: sortBy
     })
 }
 

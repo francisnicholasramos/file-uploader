@@ -1,5 +1,6 @@
 import {Router} from "express";
 import {validateSharedDirectory} from "../middleware/validateSharedDirectory";
+import {handleSortQuery} from "../middleware/handleSortQuery";
 import {
     publicFileDownload,
     publicDirectoryUrl,
@@ -15,6 +16,7 @@ router.get(
 
 router.get(
     ['/:sharedDirectoryId', '/:sharedDirectoryId/:folderId'],
+    handleSortQuery,
     validateSharedDirectory,
     publicDirectoryUrl
 )
