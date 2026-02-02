@@ -19,15 +19,15 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
         await createUser(username, hashedPassword);
         res.redirect("/");
     } catch (error) {
-        let errorMessage = defaultError;
+        let signUpFeedback = defaultError;
         
         if (error instanceof ZodError && error.issues.length > 0) {
-            errorMessage = error.issues[0].message;
+            signUpFeedback = error.issues[0].message;
         }
         
-        req.errorMessage = errorMessage;  
+        req.signUpFeedback = signUpFeedback;  
         res.render("signup", { 
-            errorMessage,         
+            signUpFeedback,         
             hasError: true 
         });
     }
@@ -66,11 +66,11 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
     try {
         if (req.isAuthenticated()) return res.redirect("/");
         
-        const errorMessage = req.errorMessage; 
+        const signUpFeedback = req.signUpFeedback; 
         
         res.render("signup", {
-            errorMessage,
-            hasError: !!errorMessage
+            signUpFeedback,
+            hasError: !!signUpFeedback
         });
     } catch (err) {
         next(err);

@@ -8,7 +8,7 @@ namespace Express {
         sharedFolder?: Prisma.SharedFolder
         sortBy?: Prisma.EntityOrderByWithRelationInput[]
         session: Session
-        errorMessage: string
+        signUpFeedback: string
     }
    
     interface Session {
