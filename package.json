@@ -1,8 +1,11 @@
 {
   "scripts": {
     "dev": "tsx watch --env-file=.env src/app.ts",
+    "prod": "tsx watch --env-file=.env.prod src/app.ts",
+    "build": "tsc",
+    "start": "node dist/app.js",
     "generate": "npx prisma generate",
-    "migrate": "npx prisma migrate dev",
+    "migrate": "npx prisma db push",
     "reset": "prisma migrate reset"
   },
   "dependencies": {
