@@ -3,7 +3,7 @@ import type {RequestHandler} from "express"
 
 export const cacheMiddleware = (duration: number): RequestHandler => {
     return (req, res, next) => {
-        const userId = req.userId?.id;
+        const userId = req.user?.id;
         const key = `__express__${userId}_${req.originalUrl || req.url}`;
         const cachedBody = cache.get(key);
 
