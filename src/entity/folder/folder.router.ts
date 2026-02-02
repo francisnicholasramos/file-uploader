@@ -5,7 +5,7 @@ import {
     getFolder,
     handleCreateDirectory,
     handleDeleteDirectory
-} from "@/entity/folder/folder.controller";
+} from "../folder/folder.controller";
 
 const router = Router();
 
