@@ -7,12 +7,12 @@ Live: https://file-uploader-t27g.onrender.com
 ### Features:
 * **Folder/File Management**: File and folder management with hierarchical structure.
 * **Access Control**: Access files and folders via shareable links.
-* **Folder sharing**: Folder sharing with expiring public links.
 * **Sorting**: Sort items by name, size, or creation date for ease of navigation. 
 * **Session-based**: Authentication with Passport.js
-* **RESTful API endpoints**: for file operations
+* **RESTful API endpoints**: For file and folder operations
+* **Modular Architecture**: Application structured by feature and split into layers for modularity and maintainability.
 
-### Tech Stack
+### Tech Stack:
 #### Backend:
 * Node.js with TypeScript
 * Express.js framework
