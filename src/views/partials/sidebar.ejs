@@ -1,3 +1,4 @@
+<div class="sidebar">
 <button class="btn-secondary" id="file" data-target="new-file">New File</button>
 <button class="btn-secondary" id="folder" data-target="new-folder">New Folder</button>
 
@@ -54,21 +55,28 @@
 <!-- delete folder -->
 <dialog id="delete-folder" class="navigation-dialog">
     <div>
+        <h4>Delete Folder?</h4>
+        <button type="button" class="closeModal">x</button>
+    </div>
+
+    <div>
+        <div>
         <% if (folderId && pathSegments.length > 0) { %>
             <!-- last element represents the currently viewing folder -->
             <% const currentFolder = pathSegments[pathSegments.length - 1] %>
             <% if (currentFolder) { %>
-                <small>Delete folder </small>
+                <small>Name: </small>
                 <small>
-                    <i>
-                        <%= currentFolder.name %>?
-                    </i>
+                  <%= currentFolder.name %>
                 </small>
             <% } %>
         <% } %>
-    </div>
+        </div>
 
-    <button class="deleteFolder">Delete folder</button>
+        <div>
+          <button class="deleteFolder">Delete</button>
+        </div>
+    </div>
 </dialog>
 
 <!-- shared folder button -->
@@ -100,5 +108,6 @@
         <button class="btn-primary">Copy Link</button>
     </div>
 </dialog>
+</div>
 
 <%- include('tree', { baseUrl }) %>

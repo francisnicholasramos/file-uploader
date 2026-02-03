@@ -105,6 +105,12 @@
 }
 
 /* navigation section */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
 .navigation-section {
   display: flex;
   flex-direction: column;
@@ -247,6 +253,41 @@ dialog[open] {
   gap: 15px;
   min-width: auto;
   width: 310px;
+}
+
+#delete-folder {
+  padding: 5px 10px 10px 10px;
+  width: 310px;
+}
+
+#delete-folder > div:first-of-type {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#delete-folder > div:last-of-type {
+  display: flex;
+  flex-direction: column;
+  min-width: auto;
+}
+
+#delete-folder > div:last-of-type > div > button {
+  color: #1a1a1a;
+  background-color: #fb6150;
+}
+
+#delete-folder > div:last-of-type > div:first-of-type > small:first-of-type {
+  color: #b8bb26;
+}
+
+#delete-folder > div:last-of-type > div:first-of-type > small:last-of-type {
+  color: #fabd2f; /* yellow */
+  font-weight: bold;
+}
+
+#delete-folder > div:last-of-type > div:last-of-type {
+  margin: 0 0 0 auto;
 }
 
 .navigation-dialog:last-of-type > div:first-of-type {
@@ -450,4 +491,95 @@ summary::before {
 
 .btn-secondary:hover {
   background-color: #333333;
+}
+
+/* MOBILE  */
+@media (max-width: 767px) {
+  /* adjust partition to 60/40 ratio */
+  .sort-menu > a { /* sort by name */
+    width: 100%;
+    max-width: 65%;
+  }
+
+  .folder > div:first-of-type {
+    width: 100%;
+    max-width: 70%;
+  }
+
+  .file > div:first-of-type {
+    width: 100%;
+    max-width: 65%;
+  }
+
+  /* sort options  */
+  .sort-menu {
+    font-size: 0.8rem;
+  }
+
+  .entities {
+    font-size: 0.8rem;
+  }
+
+  .entities > div:last-of-type > p {
+    font-size: 0.5rem;
+  }
+
+  .navigation-section {
+    background-color: #1c1c1c;
+    box-shadow: 0 -2px 5px rgba(255, 255, 255, 0.1);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+  }
+
+  fieldset {
+    display: none;
+  }
+}
+
+@media (max-width: 479px) {
+  .breadcrumbs {
+    font-size: 0.8rem;
+  }
+
+  /* adjust partition to 60/40 ratio */
+  .sort-menu > a { /* sort by name */
+    width: 100%;
+    max-width: 65%;
+  }
+
+  .folder > div:first-of-type {
+    width: 100%;
+    max-width: 70%;
+  }
+
+  .file > div:first-of-type {
+    width: 100%;
+    max-width: 65%;
+  }
+
+  /* sort options  */
+  .sort-menu {
+    font-size: 0.7rem;
+  }
+
+  /* items */
+  .entities {
+    font-size: 0.8rem;
+  }
+
+  .entities > div:last-of-type > p {
+    font-size: 0.5rem;
+  }
+
+  fieldset {
+    display: none;
+  }
 }
