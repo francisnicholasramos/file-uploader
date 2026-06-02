@@ -3,8 +3,10 @@ function getShareFileUrl() {
     document.querySelectorAll('.file-modal select').forEach(select => {
         const modal = select.closest(".file-modal");
         const inputLink = modal.querySelector(".copyLink")
+        const copyBtn = modal.querySelector('.btn-primary')
 
         inputLink.style.display = 'none'
+        copyBtn.style.display = 'none'
 
         select.addEventListener('change', async (e) => {
             e.preventDefault();
@@ -24,6 +26,13 @@ function getShareFileUrl() {
                         generatedLink.value = data.url;
                         select.style.display = 'none'
                         generatedLink.disabled = false
+                        copyBtn.style.display = 'flex'
+
+                        copyBtn.onclick = () => {
+                            navigator.clipboard.writeText(data.url)
+                            copyBtn.textContent = 'Copied!'
+                            copyBtn.disabled = true
+                        }
                     }
                 } catch (err) {
                     generatedLink.value = 'Failed to generate URL'

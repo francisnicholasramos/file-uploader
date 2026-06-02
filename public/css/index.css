@@ -177,6 +177,11 @@ dialog[open] {
   color: #fabd2f; /* yellow */
 }
 
+.file-modal .action {
+  display: flex;
+  flex-direction: column;
+}
+
 .metadata {
   display: flex;
   flex-direction: column;
