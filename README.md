@@ -24,7 +24,7 @@ Live: https://file-uploader-t27g.onrender.com
 
 #### Frontend:
 * EJS templating engine
-* Vanilla JavaScript with TypeScript
+* Vanilla JavaScript/TypeScript
 * HTML/CSS
 
 #### Storage & Database:
